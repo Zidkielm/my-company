@@ -14,8 +14,8 @@ class OurTeamController extends Controller
      */
     public function index()
     {
-        $teams=OurTeam::orderByDesc('id')->paginate(10);
-            return view('admin.teams.index', compact('teams'));
+        $teams = OurTeam::orderByDesc('id')->paginate(10);
+        return view('admin.teams.index', compact('teams'));
     }
 
     /**
@@ -31,7 +31,17 @@ class OurTeamController extends Controller
      */
     public function store(StoreTeamRequest $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            $validated = $request->validated();
+
+            if ($request->hasFile('avatar')) {
+                $avatarpath = $request->file('avatar')->store('avatars', 'public');
+                $validated['avatar'] = $avatarpath;
+            }
+            $newTeam = OurTeam::create($validated);
+        });
+
+        return redirect()->route('admin.teams.index');
     }
 
     /**
