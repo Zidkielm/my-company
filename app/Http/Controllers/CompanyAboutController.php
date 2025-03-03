@@ -79,8 +79,11 @@ class CompanyAboutController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CompanyAbout $companyAbout)
+    public function destroy(CompanyAbout $About)
     {
-        //
+        DB::transaction(function () use ($About) {
+            $About->delete();
+        });
+        return redirect()->route('admin.abouts.index');
     }
 }
