@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use App\Models\ProjectClient;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -68,9 +69,23 @@ class ProjectClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProjectClient $client)
+    public function update(UpdateClientRequest $request, ProjectClient $client)
     {
-        //
+        DB::transaction(function () use ($request, $client) {
+            $validated = $request->validated();
+
+            if ($request->hasFile('avatar')) {
+                $avatarpath = $request->file('avatar')->store('avatars', 'public');
+                $validated['avatar'] = $avatarpath;
+            }
+            if ($request->hasFile('logo')) {
+                $logopath = $request->file('logo')->store('logos', 'public');
+                $validated['logo'] = $logopath;
+            }
+            $client->update($validated);
+        });
+
+        return redirect()->route('admin.clients.index');
     }
 
     /**
@@ -78,7 +93,7 @@ class ProjectClientController extends Controller
      */
     public function destroy(ProjectClient $client)
     {
-        DB::transaction(function() use ($client){
+        DB::transaction(function () use ($client) {
             $client->delete();
         });
         return redirect()->route('admin.clients.index');

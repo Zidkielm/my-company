@@ -23,7 +23,6 @@
                     @method('PUT')
                     <div class="mt-4">
                         <x-input-label for="project_client" :value="__('project_client')" />
-
                         <select name="project_client_id" id="project_client_id"
                             class="w-full rounded-lg border border-slate-300 py-3 pl-3">
                             <option value=" {{ $testimonial->client->id }} ">{{ $testimonial->client->name }}</option>

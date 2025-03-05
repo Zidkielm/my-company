@@ -15,7 +15,7 @@ class CompanyAbout extends Model
         'type',
     ];
 
-    public function keypoint()
+    public function keypoints()
     {
         return $this->hasMany(CompanyKeypoint::class);
     }

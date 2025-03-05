@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAboutRequest;
+use App\Http\Requests\UpdateAboutRequest;
 use App\Models\CompanyAbout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,7 +43,7 @@ class CompanyAboutController extends Controller
 
             if (!empty($validated['keypoints'])) {
                 foreach ($validated['keypoints'] as $keypoint) {
-                    $newAbout->keypoint()->create([
+                    $newAbout->keypoints()->create([
                         'keypoint' => $keypoint
                     ]);
                 }
@@ -71,9 +72,28 @@ class CompanyAboutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CompanyAbout $about)
+    public function update(UpdateAboutRequest $request, CompanyAbout $about)
     {
-        //
+        DB::transaction(function () use ($request, $about) {
+            $validated = $request->validated();
+
+            if ($request->hasFile('thumbnail')) {
+                $thumbnailpath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $validated['thumbnail'] = $thumbnailpath;
+            }
+            $about->update($validated);
+
+            if (!empty($validated['keypoints'])) {
+                $about->keypoints()->delete();
+                foreach ($validated['keypoints'] as $keypoint) {
+                    $about->keypoints()->create([
+                        'keypoint' => $keypoint
+                    ]);
+                }
+            }
+        });
+
+        return redirect()->route('admin.abouts.index');
     }
 
     /**

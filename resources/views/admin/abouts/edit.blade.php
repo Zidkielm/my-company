@@ -17,20 +17,20 @@
                     @endforeach
                 @endif
 
-                <form method="POST" action=" " enctype="multipart/form-data">
+                <form method="POST" action=" {{ route('admin.abouts.update', $about) }} " enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div>
                         <x-input-label for="name" :value="__('Name')" />
-                        <x-text-input id="name" class="mt-1 block w-full" type="text" name="name" 
-                        value="{{ $about->name }}" required
-                            autofocus autocomplete="name" />
+                        <x-text-input id="name" class="mt-1 block w-full" type="text" name="name"
+                            value="{{ $about->name }}" required autofocus autocomplete="name" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-input-label for="thumbnail" :value="__('thumbnail')" />
-                        <img src=" {{ Storage::url($about->thumbnail) }} " alt="" class="h-[90px] w-[90px] rounded-2xl object-cover">
+                        <img src=" {{ Storage::url($about->thumbnail) }} " alt=""
+                            class="h-[90px] w-[90px] rounded-2xl object-cover">
                         <x-text-input id="thumbnail" class="mt-1 block w-full" type="file" name="thumbnail" autofocus
                             autocomplete="thumbnail" />
                         <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />

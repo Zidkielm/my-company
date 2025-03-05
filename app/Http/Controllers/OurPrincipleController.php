@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePrincipleRequest;
+use App\Http\Requests\UpdatePrincipleRequest;
 use App\Models\OurPrinciple;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -67,9 +68,23 @@ class OurPrincipleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OurPrinciple $principle)
+    public function update(UpdatePrincipleRequest $request, OurPrinciple $principle)
     {
-        //
+        DB::transaction(function () use ($request, $principle) {
+            $validated = $request->validated();
+
+            if ($request->hasFile('icon')) {
+                $iconpath = $request->file('icon')->store('icons', 'public');
+                $validated['icon'] = $iconpath;
+            }
+            if ($request->hasFile('thumbnail')) {
+                $thumbnailpath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $validated['thumbnail'] = $thumbnailpath;
+            }
+            $principle->update($validated);
+        });
+
+        return redirect()->route('admin.principles.index');
     }
 
     /**

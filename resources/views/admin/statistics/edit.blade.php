@@ -24,7 +24,7 @@
                     <div>
                         <x-input-label for="name" :value="__('Name')" />
                         <x-text-input id="name" class="mt-1 block w-full" type="text" name="name"
-                            value="{{ $statistic->name }}" required autofocus autocomplete="name" />
+                            value="{{ $statistic->Name }}" required autofocus autocomplete="name" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
