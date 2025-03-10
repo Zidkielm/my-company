@@ -10,11 +10,11 @@
             <div class="overflow-hidden bg-white p-10 shadow-sm sm:rounded-lg">
 
                 @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="w-full rounded-3xl bg-red-500 py-3 text-white">
-                            {{ $error }}
-                        </div>
-                    @endforeach
+                @foreach ($errors->all() as $error)
+                <div class="w-full rounded-3xl bg-red-500 py-3 text-white">
+                    {{ $error }}
+                </div>
+                @endforeach
                 @endif
 
                 <form method="POST" action=" {{ route('admin.testimonials.update', $testimonial) }}"
@@ -27,7 +27,7 @@
                             class="w-full rounded-lg border border-slate-300 py-3 pl-3">
                             <option value=" {{ $testimonial->client->id }} ">{{ $testimonial->client->name }}</option>
                             @foreach ($clients as $client)
-                                <option value="{{ $client->id }}">{{ $client->name }}</option>
+                            <option value="{{ $client->id }}">{{ $client->name }}</option>
                             @endforeach
                         </select>
 
