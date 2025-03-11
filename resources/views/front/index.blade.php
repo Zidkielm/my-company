@@ -2,40 +2,9 @@
 @section('content')
     <div id="header" class="relative overflow-hidden bg-[#F6F7FA]">
         <div class="container relative z-10 mx-auto max-w-[1130px] pt-10">
-            <nav class="flex flex-wrap items-center justify-between gap-y-3 rounded-[20px] bg-white p-[20px_30px]">
-                <div class="flex items-center gap-3">
-                    <div class="flex h-[43px] shrink-0 overflow-hidden">
-                        <img src="{{ asset('assets/logo/logo.svg') }}" class="h-full w-full object-contain" alt="logo">
-                    </div>
-                    <div class="flex flex-col">
-                        <p id="CompanyName" class="text-xl font-extrabold leading-[30px]">ShaynaComp</p>
-                        <p id="CompanyTagline" class="text-cp-light-grey text-sm">Build Futuristic Dreams</p>
-                    </div>
-                </div>
-                <ul class="flex flex-wrap items-center gap-[30px]">
-                    <li class="hover:text-cp-dark-blue text-cp-dark-blue font-semibold transition-all duration-300">
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li class="hover:text-cp-dark-blue font-semibold transition-all duration-300">
-                        <a href="">Products</a>
-                    </li>
-                    <li class="hover:text-cp-dark-blue font-semibold transition-all duration-300">
-                        <a href="">Company</a>
-                    </li>
-                    <li class="hover:text-cp-dark-blue font-semibold transition-all duration-300">
-                        <a href="">Blog</a>
-                    </li>
-                    <li class="hover:text-cp-dark-blue font-semibold transition-all duration-300">
-                        <a href="about.html">About</a>
-                    </li>
-                </ul>
-                <a href=""
-                    class="bg-cp-dark-blue w-fit rounded-xl p-[14px_20px] font-bold text-white transition-all duration-300 hover:shadow-[0_12px_30px_0_#312ECB66]">Get
-                    a Quote</a>
-            </nav>
-
+            <x-navbar />
             @forelse ($hero_sections as $hero_section)
-            <input type="hidden" name="path_video" id="path_video" value="{{ $hero_section->path_video }}">
+                <input type="hidden" name="path_video" id="path_video" value="{{ $hero_section->path_video }}">
                 <div id="Hero" class="mt-20 flex flex-col gap-[30px] pb-20">
                     <div class="flex w-fit items-center gap-[10px] rounded-full bg-white p-[8px_16px]">
                         <div class="flex h-5 w-5 shrink-0 overflow-hidden">
@@ -250,7 +219,7 @@
                     <p>belum ada data terbaru</p>
                 @endforelse
 
-                <a href="team.html" class="view-all-card">
+                <a href="{{ route('front.team') }}" class="view-all-card">
                     <div
                         class="card hover:border-cp-dark-blue flex h-full flex-col items-center justify-center gap-[30px] rounded-[20px] border border-white bg-white p-[30px] transition-all duration-300 hover:shadow-[0_10px_30px_0_#D1D4DF80]">
                         <div class="flex h-[60px] w-[60px] shrink-0">

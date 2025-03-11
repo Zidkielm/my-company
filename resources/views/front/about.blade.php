@@ -1,49 +1,105 @@
 @extends('front.layouts.app')
 @section('content')
-    <div id="header" class="relative -mb-[388px] h-[600px] bg-[#F6F7FA]">
+    <div id="header" class="relative bg-[#F6F7FA]">
         <div class="container relative z-10 mx-auto max-w-[1130px] pt-10">
             <x-navbar/>
-        </div>
-    </div>
-    <div id="Teams" class="relative z-10 w-full px-[10px]">
-        <div class="container mx-auto flex max-w-[1130px] flex-col items-center gap-[50px]">
-            <div class="flex flex-col items-center gap-[50px]">
+            <div class="flex flex-col items-center gap-[50px] py-20">
                 <div class="breadcrumb flex items-center justify-center gap-[30px]">
                     <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Home</p>
                     <span class="text-cp-light-grey">/</span>
-                    <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Our Team</p>
+                    <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">About Us</p>
                 </div>
-                <h2 class="text-center text-4xl font-bold leading-[45px]">We’re Here to Build <br> Your Awesome Projects
-                </h2>
+                <h2 class="text-center text-4xl font-bold leading-[45px]">Since Beginning We Only <br> Want to Make World
+                    Better</h2>
+            </div>
+        </div>
+    </div>
+    <div id="Products" class="container mx-auto mt-20 flex max-w-[1130px] flex-col gap-20">        
+		@forelse ($abouts as $about )
+		<div class="product flex flex-wrap items-center justify-center gap-[60px] even:flex-row-reverse">
+            <div class="flex h-[550px] w-[470px] shrink-0 overflow-hidden">
+                <img src="{{Storage::url($about->thumbnail)}}" class="h-full w-full object-contain" alt="thumbnail">
+            </div>
+            <div class="flex h-fit max-w-[500px] flex-col gap-[30px] py-[50px]">
+                <p
+                    class="badge bg-cp-pale-blue text-cp-light-blue w-fit rounded-full p-[8px_16px] text-sm font-bold uppercase">
+                    OUR {{ $about->type }}</p>
+                <div class="flex flex-col gap-[10px]">
+                    <h2 class="text-4xl font-bold leading-[45px]">{{ $about->name }}</h2>
+                    <div class="flex flex-col gap-5">
+						@forelse ($about->keypoints as $keypoint )
+                        <div class="flex items-center gap-[10px]">
+                            <div class="flex h-6 w-6 shrink-0">
+                                <img src="assets/icons/tick-circle.svg" alt="icon">
+                            </div>
+                            <p class="font-semibold leading-[26px]">{{$keypoint->keypoint }}</p>
+                        </div>
+						@empty
+						@endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
+		@empty
+		<p>belum ada data terbaru</p>
+		@endforelse
+    </div>
+    <div id="Clients" class="container mx-auto mt-20 flex max-w-[1130px] flex-col justify-center gap-5 text-center">
+        <h2 class="text-lg font-bold">Trusted by 500+ Top Leaders Worldwide</h2>
+        <div class="logo-container flex flex-wrap justify-center gap-5">
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-54.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
             </div>
             <div
-                class="teams-card-container grid grid-cols-1 justify-center gap-[30px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-
-                @forelse ($teams as $team)
-                    <div
-                        class="card hover:border-cp-dark-blue flex h-full flex-col items-center justify-center gap-[30px] rounded-[20px] border border-[#E8EAF2] bg-white p-[30px] px-[29px] transition-all duration-300 hover:shadow-[0_10px_30px_0_#D1D4DF80]">
-                        <div
-                            class="flex h-[100px] w-[100px] shrink-0 items-center justify-center rounded-full bg-[linear-gradient(150.55deg,_#007AFF_8.72%,_#312ECB_87.11%)]">
-                            <div class="h-[90px] w-[90px] overflow-hidden rounded-full">
-                                <img src="{{ Storage::url($team->avatar) }}"
-                                    class="h-full w-full object-cover object-center" alt="photo">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-1 text-center">
-                            <p class="text-xl font-bold leading-[30px]">{{ $team->name }}</p>
-                            <p class="text-cp-light-grey">{{ $team->occupation }}</p>
-                        </div>
-                        <div class="flex items-center justify-center gap-[10px]">
-                            <div class="flex h-6 w-6 shrink-0">
-                                <img src="assets/icons/global.svg" alt="icon">
-                            </div>
-                            <p class="text-cp-dark-blue font-semibold">{{ $team->location }}</p>
-                        </div>
-                    </div>
-                @empty
-                    <p>belum ada data terbaru</p>
-                @endforelse
-
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-52.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
+            </div>
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-55.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
+            </div>
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-44.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
+            </div>
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-51.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
+            </div>
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-55.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
+            </div>
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-52.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
+            </div>
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-54.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
+            </div>
+            <div
+                class="logo-card hover:border-cp-dark-blue flex h-[68px] w-fit shrink-0 items-center gap-[10px] rounded-[18px] border border-[#E8EAF2] bg-white p-4 transition-all duration-300">
+                <div class="h-9 overflow-hidden">
+                    <img src="assets/logo/logo-51.svg" class="h-full w-full object-contain" alt="logo">
+                </div>
             </div>
         </div>
     </div>
@@ -78,8 +134,7 @@
             </div>
             <a href="" class="bg-cp-black w-fit rounded-xl p-[14px_20px] font-bold text-white">Explore More</a>
         </div>
-        <div
-            class="awards-card-container grid grid-cols-1 justify-center gap-[30px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div class="awards-card-container grid grid-cols-4 justify-center gap-[30px]">
             <div
                 class="card hover:border-cp-dark-blue flex h-full flex-col gap-[30px] rounded-[20px] border border-[#E8EAF2] bg-white p-[30px] transition-all duration-300">
                 <div class="flex h-[55px] w-[55px] shrink-0">
