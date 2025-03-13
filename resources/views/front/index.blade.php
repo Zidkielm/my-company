@@ -173,7 +173,7 @@
                         </h2>
                         <p class="text-cp-light-grey leading-[30px]">{{ $product->about }}</p>
                     </div>
-                    <a href=""
+                    <a href="{{ route('front.appointment') }}"
                         class="bg-cp-dark-blue w-fit rounded-xl p-[14px_20px] font-bold text-white transition-all duration-300 hover:shadow-[0_12px_30px_0_#312ECB66]">Book
                         Appointment</a>
                 </div>
@@ -365,7 +365,7 @@
                     <div class="flex flex-col gap-[10px]">
                         <h2 class="text-4xl font-bold leading-[45px]">Frequently Asked Questions</h2>
                     </div>
-                    <a href="contact.html" class="bg-cp-black w-fit rounded-xl p-5 font-bold text-white">Contact
+                    <a href="{{ route('front.appointment') }}" class="bg-cp-black w-fit rounded-xl p-5 font-bold text-white">Contact
                         Us</a>
                 </div>
                 <div class="flex shrink-0 flex-col gap-[30px] sm:w-[603px]">

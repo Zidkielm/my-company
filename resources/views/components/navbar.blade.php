@@ -30,7 +30,7 @@
             <a href="{{ route('front.about') }}">About</a>
         </li>
     </ul>
-    <a href=""
+    <a href="{{ route('front.appointment') }}"
         class="bg-cp-dark-blue w-fit rounded-xl p-[14px_20px] font-bold text-white transition-all duration-300 hover:shadow-[0_12px_30px_0_#312ECB66]">Get
         a Quote</a>
 </nav>
